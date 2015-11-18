@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="CircleSlider_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,8 +16,58 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6g-Km-UMU">
+                                <rect key="frame" x="265" y="505" width="70" height="35"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.58418924829999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="AfH-KC-BOm"/>
+                                    <constraint firstAttribute="width" constant="70" id="Dlz-zp-iro"/>
+                                </constraints>
+                                <state key="normal" title="Progress"/>
+                                <connections>
+                                    <action selector="tapProgress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="JnL-69-AXY"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j04-Pp-oBH">
+                                <rect key="frame" x="200" y="280" width="200" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="s1U-fY-5gu"/>
+                                    <constraint firstAttribute="height" constant="200" id="xZt-KQ-e7q"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiH-Ad-oaa">
+                                <rect key="frame" x="200" y="50" width="200" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="TGZ-JB-CVM"/>
+                                    <constraint firstAttribute="width" constant="200" id="apX-uG-hkX"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.94482080419580416" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wiH-Ad-oaa" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="96m-U1-9WX"/>
+                            <constraint firstItem="wiH-Ad-oaa" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="30" id="9BC-t9-ATl"/>
+                            <constraint firstItem="j04-Pp-oBH" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="BDs-sN-JBx"/>
+                            <constraint firstItem="wiH-Ad-oaa" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Faq-At-ho4"/>
+                            <constraint firstItem="j04-Pp-oBH" firstAttribute="top" secondItem="wiH-Ad-oaa" secondAttribute="bottom" constant="30" id="Phw-Rg-Pq1"/>
+                            <constraint firstItem="S6g-Km-UMU" firstAttribute="top" secondItem="wiH-Ad-oaa" secondAttribute="bottom" constant="61" id="ZDR-wZ-WiM"/>
+                            <constraint firstItem="S6g-Km-UMU" firstAttribute="top" secondItem="j04-Pp-oBH" secondAttribute="bottom" constant="25" id="jhM-je-1VO"/>
+                            <constraint firstItem="S6g-Km-UMU" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="p01-Bx-K3s"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="96m-U1-9WX"/>
+                                <exclude reference="ZDR-wZ-WiM"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="progressArea" destination="j04-Pp-oBH" id="StF-Zp-EA0"/>
+                        <outlet property="sliderArea" destination="wiH-Ad-oaa" id="ku4-vA-MDL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

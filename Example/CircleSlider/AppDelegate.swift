@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  CircleSlider
 //
-//  Created by 増島 亘康 on 11/17/2015.
-//  Copyright (c) 2015 増島 亘康. All rights reserved.
+//  Created by shushutochako on 11/17/2015.
+//  Copyright (c) 2015 shushutochako. All rights reserved.
 //
 
 import UIKit
