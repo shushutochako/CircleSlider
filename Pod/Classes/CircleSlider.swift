@@ -19,6 +19,7 @@ public enum CircleSliderOption {
 }
 
 public class CircleSlider: UIControl {
+  private var latestDegree: Double = 0
   private var _value: Float = 0
   public var value: Float {
     get {
@@ -107,17 +108,32 @@ public class CircleSlider: UIControl {
   
   override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
     let degree = Math.pointPairToBearingDegrees(self.center, endPoint: touch.locationInView(self))
+    self.latestDegree = degree
     self.layout(degree)
     let value = Float(Math.adjustValue(self.startAngle, degree: degree, maxValue: self.maxValue, minValue: self.minValue))
     self.value = value
     return true
   }
   
+  public func changeOptions(options: [CircleSliderOption]) {
+    self.build(options)
+    self.redraw()
+  }
+  
+  private func redraw() {
+    self.trackLayer.removeFromSuperlayer()
+    self.trackLayer = TrackLayer(bounds: self.bounds, setting: self.createLayerSetting())
+    self.thumbView.removeFromSuperview()
+    self.thumbView = UIView(frame: CGRect(x: 0, y: 0, width: self.thumbWidth, height: self.thumbWidth))
+    self.layout(self.latestDegree)
+  }
+    
   private func build(options: [CircleSliderOption]) {
     for option in options {
       switch option {
       case let .StartAngle(value):
         self.startAngle = value
+        self.latestDegree = self.startAngle
       case let .BarColor(value):
         self.barColor = value
       case let .TrackingColor(value):

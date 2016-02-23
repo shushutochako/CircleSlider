@@ -100,5 +100,19 @@ class ViewController: UIViewController {
     }
     self.circleProgress.value = self.progressValue
   }
+  
+  @IBAction func trackingColorChanged(sender: AnyObject) {
+    let redValue = CGFloat((sender as! UISlider).value)/255
+    let newColor = UIColor(red: redValue, green: 136/255, blue: 185/255, alpha: 1)
+    self.circleSlider.changeOptions([.TrackingColor(newColor)])
+  }
+  
+  @IBAction func barWidthChanged(sender: AnyObject) {
+    self.circleSlider.changeOptions([.BarWidth(CGFloat((sender as! UISlider).value))])
+  }
+  
+  @IBAction func thumbWidthChanged(sender: AnyObject) {
+    self.circleSlider.changeOptions([.ThumbWidth(CGFloat((sender as! UISlider).value))])
+  }
 }
 

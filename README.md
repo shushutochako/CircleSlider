@@ -62,6 +62,11 @@ self.sliderArea.addSubview(self.circleSlider)
 
 ```
 
+### Change options after instantiation
+```
+self.circleSlider.changeOptions([.BarWidth(45)])
+```
+
 ## Customization
 - ``case StartAngle(Double)``
 - ``case BarColor(UIColor)``
