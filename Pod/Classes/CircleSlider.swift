@@ -13,6 +13,7 @@ public enum CircleSliderOption {
   case ThumbColor(UIColor)
   case BarWidth(CGFloat)
   case ThumbWidth(CGFloat)
+  case ThumbImage(UIImage?)
   case MaxValue(Float)
   case MinValue(Float)
   case SliderEnabled(Bool)
@@ -37,6 +38,14 @@ public class CircleSlider: UIControl {
       self.layer.addSublayer(self.trackLayer)
     }
   }
+    private var thumbImageView: UIImageView! {
+        didSet {
+            if self.sliderEnabled && self.thumbImage != nil {
+                self.thumbImageView.image = self.thumbImage
+                self.addSubview(self.thumbImageView)
+            }
+        }
+    }
   private var thumbView: UIView! {
     didSet {
       if self.sliderEnabled {
@@ -54,6 +63,7 @@ public class CircleSlider: UIControl {
   private var barColor           = UIColor.lightGrayColor()
   private var trackingColor      = UIColor.blueColor()
   private var thumbColor         = UIColor.blackColor()
+  private var thumbImage: UIImage?
   private var barWidth: CGFloat  = 20
   private var maxValue: Float    = 100
   private var minValue: Float    = 0
@@ -94,6 +104,9 @@ public class CircleSlider: UIControl {
     if self.thumbView == nil {
       self.thumbView = UIView(frame: CGRect(x: 0, y: 0, width: self.thumbWidth, height: self.thumbWidth))
     }
+    if self.thumbImageView == nil {
+        self.thumbImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.thumbWidth, height: self.thumbWidth))
+    }
   }
 
   override public func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
@@ -125,6 +138,8 @@ public class CircleSlider: UIControl {
     self.trackLayer = TrackLayer(bounds: self.bounds, setting: self.createLayerSetting())
     self.thumbView.removeFromSuperview()
     self.thumbView = UIView(frame: CGRect(x: 0, y: 0, width: self.thumbWidth, height: self.thumbWidth))
+    self.thumbImageView.removeFromSuperview()
+    self.thumbImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.thumbWidth, height: self.thumbWidth))
     self.layout(self.latestDegree)
   }
     
@@ -151,6 +166,8 @@ public class CircleSlider: UIControl {
         self._value = self.minValue
       case let .SliderEnabled(value):
         self.sliderEnabled = value
+      case let .ThumbImage(value):
+        self.thumbImage = value
       }
     }
     // Adjust because value not rise up to the maxValue
@@ -161,6 +178,7 @@ public class CircleSlider: UIControl {
     if let trackLayer = self.trackLayer, thumbView = self.thumbView {
       trackLayer.degree = degree
       thumbView.center = self.thumbCenter(degree)
+        thumbImageView.center = self.thumbCenter(degree)
       trackLayer.setNeedsDisplay()
     }
   }
