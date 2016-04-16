@@ -74,7 +74,7 @@ self.circleSlider.changeOptions([.BarWidth(45)])
 - ``case ThumbColor(UIColor)``
 - ``case BarWidth(CGFloat)``
 - ``case ThumbWidth(CGFloat)``
-- ``case ThumbImage(UImage?)``
+- ``case ThumbImage(UIImage?)``
 - ``case MaxValue(Float)``
 - ``case MinValue(Float)``
 - ``case SliderEnabled(Bool) ``
