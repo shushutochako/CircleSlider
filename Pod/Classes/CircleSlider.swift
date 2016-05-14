@@ -17,6 +17,7 @@ public enum CircleSliderOption {
   case MaxValue(Float)
   case MinValue(Float)
   case SliderEnabled(Bool)
+  case ThumbOffset(Bool)
 }
 
 public class CircleSlider: UIControl {
@@ -68,6 +69,7 @@ public class CircleSlider: UIControl {
   private var maxValue: Float    = 100
   private var minValue: Float    = 0
   private var sliderEnabled      = true
+  private var thumbOffset        = true
   private var _thumbWidth: CGFloat?
   private var thumbWidth: CGFloat {
     get {
@@ -168,6 +170,8 @@ public class CircleSlider: UIControl {
         self.sliderEnabled = value
       case let .ThumbImage(value):
         self.thumbImage = value
+      case let .ThumbOffset(value):
+        self.thumbOffset = value
       }
     }
     // Adjust because value not rise up to the maxValue
@@ -193,7 +197,10 @@ public class CircleSlider: UIControl {
   }
   
   private func thumbCenter(degree: Double) -> CGPoint {
-    let radius = (self.bounds.width * 0.5) - (self.barWidth * 0.5)
+    var radius = (self.bounds.width * 0.5)
+    if thumbOffset {
+        radius = radius - (self.barWidth * 0.5)
+    }
     return Math.pointFromAngle(self.frame, angle: degree, radius: Double(radius))
   }
 }
