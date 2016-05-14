@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = "CircleSlider"
-s.version          = "0.2.1"
+s.version          = "0.2.2"
 s.summary          = "CircleSlider is a Circular slider library. written in pure swift."
 s.homepage         = "https://github.com/lampi87/CircleSlider.git"
 s.license          = 'MIT'
