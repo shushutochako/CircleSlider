@@ -114,5 +114,9 @@ class ViewController: UIViewController {
   @IBAction func thumbWidthChanged(sender: AnyObject) {
     self.circleSlider.changeOptions([.ThumbWidth(CGFloat((sender as! UISlider).value))])
   }
+    
+  @IBAction func viewInsetChanged(sender: AnyObject) {
+    self.circleSlider.changeOptions([.ViewInset(CGFloat((sender as! UISlider).value))])
+  }
 }
 
