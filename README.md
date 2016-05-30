@@ -14,7 +14,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 - iOS 8.0+
-- Xcode 7
+- Xcode 7.3.1
 
 ## Installation
 
@@ -78,6 +78,9 @@ self.circleSlider.changeOptions([.BarWidth(45)])
 - ``case MinValue(Float)``
 - ``case SliderEnabled(Bool) ``
     - If you want to use as a progress, it should be this to false
+- ``case ViewInset(CGFloat) ``
+- ``case MinMaxSwitchTreshold(Float) ``
+
 
 ## Author
 shushutochako, shushutochako22@gmail.com

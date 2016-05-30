@@ -29,16 +29,15 @@ public class CircleSlider: UIControl {
       return self._value
     }
     set {
-      
       var value = newValue
       let significantChange = (self.maxValue - self.minValue) * (1.0 - self.minMaxSwitchTreshold)
       let isSignificantChangeOccured = fabs(newValue - self._value) > significantChange
         
       if (isSignificantChangeOccured) {
         if (self._value < newValue) {
-            value = self.minValue
+          value = self.minValue
         } else {
-            value = self.maxValue
+          value = self.maxValue
         }
       } else {
         value = newValue
@@ -85,7 +84,7 @@ public class CircleSlider: UIControl {
   private var minValue: Float    = 0
   private var sliderEnabled      = true
   private var viewInset:CGFloat  = 20
-  private var minMaxSwitchTreshold:Float = 0.05 // from 0.0 to 1.0
+  private var minMaxSwitchTreshold:Float = 0.0 // from 0.0 to 1.0
   private var _thumbWidth: CGFloat?
   private var thumbWidth: CGFloat {
     get {
@@ -125,10 +124,13 @@ public class CircleSlider: UIControl {
   }
 
   override public func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-    
-    let thumbInset = (minThumbTouchAreaWidth - thumbWidth) / 2.0
-    let thumbRect = CGRectInset(self.thumbView.frame, -thumbInset, -thumbInset)
-    if !(CGRectContainsPoint(self.bounds, point) || !CGRectContainsPoint(thumbRect, point)) {
+    if !self.sliderEnabled {
+      return nil
+    }
+    let rect = self.trackLayer.hollowRect
+    let hollowPath = UIBezierPath(roundedRect: rect, cornerRadius: self.trackLayer.hollowRadius)
+    if !(CGRectContainsPoint(self.bounds, point) || hollowPath.containsPoint(point)) ||
+       !(CGRectContainsPoint(self.thumbView.frame, point)) {
       return nil
     }
     return self
