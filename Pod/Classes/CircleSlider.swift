@@ -124,10 +124,13 @@ public class CircleSlider: UIControl {
   }
 
   override public func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-    
-    let thumbInset = (minThumbTouchAreaWidth - thumbWidth) / 2.0
-    let thumbRect = CGRectInset(self.thumbView.frame, -thumbInset, -thumbInset)
-    if !(CGRectContainsPoint(self.bounds, point) || !CGRectContainsPoint(thumbRect, point)) {
+    if !self.sliderEnabled {
+      return nil
+    }
+    let rect = self.trackLayer.hollowRect
+    let hollowPath = UIBezierPath(roundedRect: rect, cornerRadius: self.trackLayer.hollowRadius)
+    if !(CGRectContainsPoint(self.bounds, point) || hollowPath.containsPoint(point)) ||
+       !(CGRectContainsPoint(self.thumbView.frame, point)) {
       return nil
     }
     return self
