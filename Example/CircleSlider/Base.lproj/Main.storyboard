@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -63,6 +64,15 @@
                                     <action selector="thumbWidthChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Gi7-Xg-wvW"/>
                                 </connections>
                             </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="0.0" maxValue="40" translatesAutoresizingMaskIntoConstraints="NO" id="dmr-jf-erE">
+                                <rect key="frame" x="98" y="340" width="454" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="nT9-rY-Fmz"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="viewInsetChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="21F-Mf-BfY"/>
+                                </connections>
+                            </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ukk-4N-QYC">
                                 <rect key="frame" x="53" y="226" width="37" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -81,17 +91,25 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View Inset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLd-3I-s7p">
+                                <rect key="frame" x="27" y="347" width="63" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.94482080419580416" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6ow-7V-DKj" firstAttribute="centerY" secondItem="8jf-T4-wYU" secondAttribute="centerY" id="2zO-bO-B69"/>
                             <constraint firstItem="BC0-rC-j4x" firstAttribute="top" secondItem="6ow-7V-DKj" secondAttribute="bottom" constant="10" id="3uV-y7-U1R"/>
+                            <constraint firstItem="dmr-jf-erE" firstAttribute="top" secondItem="BC0-rC-j4x" secondAttribute="bottom" constant="10" id="3wK-Vr-IWq"/>
                             <constraint firstAttribute="trailing" secondItem="BC0-rC-j4x" secondAttribute="trailing" constant="50" id="4PJ-CX-0hP"/>
                             <constraint firstItem="6ow-7V-DKj" firstAttribute="top" secondItem="JRS-Fe-8He" secondAttribute="bottom" constant="10" id="7ZO-Dl-i87"/>
                             <constraint firstItem="wiH-Ad-oaa" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="96m-U1-9WX"/>
                             <constraint firstItem="wiH-Ad-oaa" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="30" id="9BC-t9-ATl"/>
                             <constraint firstItem="BC0-rC-j4x" firstAttribute="leading" secondItem="uti-gZ-R0l" secondAttribute="trailing" constant="10" id="A07-cz-NR1"/>
                             <constraint firstItem="j04-Pp-oBH" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="BDs-sN-JBx"/>
+                            <constraint firstItem="dmr-jf-erE" firstAttribute="centerY" secondItem="jLd-3I-s7p" secondAttribute="centerY" id="Cdg-na-f4X"/>
                             <constraint firstItem="JRS-Fe-8He" firstAttribute="top" secondItem="wiH-Ad-oaa" secondAttribute="bottom" constant="20" id="Eu1-kF-vsP"/>
                             <constraint firstItem="wiH-Ad-oaa" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Faq-At-ho4"/>
                             <constraint firstItem="JRS-Fe-8He" firstAttribute="leading" secondItem="Ukk-4N-QYC" secondAttribute="trailing" constant="10" id="MEZ-u1-bWa"/>
@@ -100,14 +118,17 @@
                             <constraint firstItem="j04-Pp-oBH" firstAttribute="top" secondItem="wiH-Ad-oaa" secondAttribute="bottom" constant="30" id="Phw-Rg-Pq1"/>
                             <constraint firstItem="6ow-7V-DKj" firstAttribute="leading" secondItem="8jf-T4-wYU" secondAttribute="trailing" constant="10" id="V9j-Vb-Azc"/>
                             <constraint firstItem="S6g-Km-UMU" firstAttribute="top" secondItem="wiH-Ad-oaa" secondAttribute="bottom" constant="61" id="ZDR-wZ-WiM"/>
+                            <constraint firstItem="dmr-jf-erE" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="80" id="ZoQ-ei-liU"/>
                             <constraint firstItem="JRS-Fe-8He" firstAttribute="centerY" secondItem="Ukk-4N-QYC" secondAttribute="centerY" id="b8Q-d2-AWo"/>
                             <constraint firstItem="j04-Pp-oBH" firstAttribute="top" secondItem="BC0-rC-j4x" secondAttribute="bottom" constant="30" id="f5k-71-gCF"/>
                             <constraint firstItem="BC0-rC-j4x" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="100" id="fEN-kK-ihK"/>
                             <constraint firstItem="6ow-7V-DKj" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="100" id="jDu-5a-5nb"/>
                             <constraint firstItem="S6g-Km-UMU" firstAttribute="top" secondItem="j04-Pp-oBH" secondAttribute="bottom" constant="25" id="jhM-je-1VO"/>
+                            <constraint firstItem="dmr-jf-erE" firstAttribute="leading" secondItem="jLd-3I-s7p" secondAttribute="trailing" constant="10" id="nLG-a5-iRe"/>
                             <constraint firstItem="S6g-Km-UMU" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="p01-Bx-K3s"/>
                             <constraint firstItem="JRS-Fe-8He" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="100" id="p2e-bK-6uX"/>
                             <constraint firstItem="BC0-rC-j4x" firstAttribute="centerY" secondItem="uti-gZ-R0l" secondAttribute="centerY" id="uOV-eX-V8n"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dmr-jf-erE" secondAttribute="trailing" constant="30" id="xfe-4a-t03"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

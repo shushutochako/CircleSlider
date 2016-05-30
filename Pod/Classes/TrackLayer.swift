@@ -35,6 +35,7 @@ internal class TrackLayer: CAShapeLayer {
     self.bounds = bounds
     self.setting = setting
     self.cornerRadius = self.bounds.size.width * 0.5
+    self.masksToBounds = true
     self.position = self.currentCenter
     self.backgroundColor = self.setting.barColor.CGColor
     self.mask()
@@ -69,8 +70,8 @@ internal class TrackLayer: CAShapeLayer {
     CGContextBeginPath(ctx)
     CGContextMoveToPoint(ctx, centerX, centerY)
     CGContextAddArc(ctx, centerX, centerY, radius,
-      CGFloat(Math.degreesToRadians(self.setting.startAngle - M_PI * 0.5)),
-      CGFloat(Math.degreesToRadians(adjustDegree - M_PI * 0.5)), 0)
+      CGFloat(Math.degreesToRadians(self.setting.startAngle)),
+      CGFloat(Math.degreesToRadians(adjustDegree)), 0)
     CGContextClosePath(ctx);
     CGContextFillPath(ctx);
   }

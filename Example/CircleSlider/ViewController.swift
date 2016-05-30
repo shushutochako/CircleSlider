@@ -55,7 +55,7 @@ class ViewController: UIViewController {
   
   private func buildCircleSlider() {
     self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: self.sliderOptions)
-    self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .ValueChanged)
+    self.circleSlider?.addTarget(self, action: #selector(ViewController.valueChange(_:)), forControlEvents: .ValueChanged)
     self.sliderArea.addSubview(self.circleSlider!)
     self.valueLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     self.valueLabel.textAlignment = .Center
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
   
   private func buildCircleProgress() {
     self.circleProgress = CircleSlider(frame: self.sliderArea.bounds, options: self.progressOptions)
-    self.circleProgress?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .ValueChanged)
+    self.circleProgress?.addTarget(self, action: #selector(ViewController.valueChange(_:)), forControlEvents: .ValueChanged)
     self.progressArea.addSubview(self.circleProgress!)
     self.progressLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     self.progressLabel.textAlignment = .Center
@@ -87,7 +87,7 @@ class ViewController: UIViewController {
   @IBAction func tapProgress(sender: AnyObject) {
     if self.timer == nil {
       self.progressValue = 0
-      self.timer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: Selector("fire:"), userInfo: nil, repeats: true)
+      self.timer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: #selector(ViewController.fire(_:)), userInfo: nil, repeats: true)
     }
   }
   
@@ -113,6 +113,10 @@ class ViewController: UIViewController {
   
   @IBAction func thumbWidthChanged(sender: AnyObject) {
     self.circleSlider.changeOptions([.ThumbWidth(CGFloat((sender as! UISlider).value))])
+  }
+    
+  @IBAction func viewInsetChanged(sender: AnyObject) {
+    self.circleSlider.changeOptions([.ViewInset(CGFloat((sender as! UISlider).value))])
   }
 }
 
