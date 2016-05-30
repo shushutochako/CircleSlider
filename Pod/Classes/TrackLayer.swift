@@ -15,7 +15,7 @@ internal class TrackLayer: CAShapeLayer {
     var barColor = UIColor()
     var trackingColor = UIColor()
   }
-  internal var setting = Setting!()
+  internal var setting = Setting()
   internal var degree: Double = 0
   internal var hollowRadius: CGFloat {
     return (self.bounds.width * 0.5) - self.setting.barWidth
