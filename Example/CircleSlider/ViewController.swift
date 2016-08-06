@@ -35,7 +35,8 @@ class ViewController: UIViewController {
       .BarWidth(20),
       .StartAngle(-45),
       .MaxValue(150),
-      .MinValue(20)
+      .MinValue(20),
+      .ThumbImage(UIImage(named: "thumb_image")!)
     ]
   }
   private var progressOptions: [CircleSliderOption] {
