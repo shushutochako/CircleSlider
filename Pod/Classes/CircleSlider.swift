@@ -151,9 +151,14 @@ public class CircleSlider: UIControl {
   }
   
   private func redraw() {
-    self.trackLayer.removeFromSuperlayer()
+    
+    if (self.trackLayer != nil) {
+      self.trackLayer.removeFromSuperlayer()
+    }
     self.trackLayer = TrackLayer(bounds: CGRectInset(self.bounds, viewInset, viewInset), setting: self.createLayerSetting())
-    self.thumbView.removeFromSuperview()
+    if (self.thumbView != nil) {
+      self.thumbView.removeFromSuperview()
+    }
     self.thumbView = UIView(frame: CGRect(x: 0, y: 0, width: self.thumbWidth, height: self.thumbWidth))
     self.layout(self.latestDegree)
   }
