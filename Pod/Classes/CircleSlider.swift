@@ -206,6 +206,7 @@ public class CircleSlider: UIControl {
 
 	private func thumbCenter(degree: Double) -> CGPoint {
 		let radius = (CGRectInset(self.bounds, viewInset, viewInset).width * 0.5) - (self.barWidth * 0.5)
+
 		return Math.pointFromAngle(self.bounds, angle: degree, radius: Double(radius))
 	}
 }
