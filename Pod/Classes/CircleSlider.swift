@@ -11,6 +11,7 @@ public enum CircleSliderOption {
   case BarColor(UIColor)
   case TrackingColor(UIColor)
   case ThumbColor(UIColor)
+  case ThumbImage(UIImage)
   case BarWidth(CGFloat)
   case ThumbWidth(CGFloat)
   case MaxValue(Float)
@@ -69,22 +70,29 @@ public class CircleSlider: UIControl {
         self.thumbView.center = self.thumbCenter(self.startAngle)
         self.thumbView.layer.cornerRadius = self.thumbView!.bounds.size.width * 0.5
         self.addSubview(self.thumbView)
+        if let thumbImage = self.thumbImage {
+          let thumbImageView = UIImageView(frame: self.thumbView.bounds)
+          thumbImageView.image = thumbImage
+          self.thumbView.addSubview(thumbImageView)
+          self.thumbView.backgroundColor = UIColor.clearColor()
+        }
       } else {
         self.thumbView.hidden = true
       }
     }
   }
   // Options
-  private var startAngle: Double = -90
-  private var barColor           = UIColor.lightGrayColor()
-  private var trackingColor      = UIColor.blueColor()
-  private var thumbColor         = UIColor.blackColor()
-  private var barWidth: CGFloat  = 20
-  private var maxValue: Float    = 100
-  private var minValue: Float    = 0
-  private var sliderEnabled      = true
-  private var viewInset:CGFloat  = 20
+  private var startAngle: Double         = -90
+  private var barColor                   = UIColor.lightGrayColor()
+  private var trackingColor              = UIColor.blueColor()
+  private var thumbColor                 = UIColor.blackColor()
+  private var barWidth: CGFloat          = 20
+  private var maxValue: Float            = 100
+  private var minValue: Float            = 0
+  private var sliderEnabled              = true
+  private var viewInset:CGFloat          = 20
   private var minMaxSwitchTreshold:Float = 0.0 // from 0.0 to 1.0
+  private var thumbImage: UIImage?
   private var _thumbWidth: CGFloat?
   private var thumbWidth: CGFloat {
     get {
@@ -190,6 +198,8 @@ public class CircleSlider: UIControl {
         self.viewInset = value
       case let .MinMaxSwitchTreshold(value):
         self.minMaxSwitchTreshold = value
+      case let .ThumbImage(value):
+        self.thumbImage = value
       }
     }
   }
