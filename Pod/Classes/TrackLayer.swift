@@ -21,7 +21,7 @@ internal class TrackLayer: CAShapeLayer {
     return (self.bounds.width * 0.5) - self.setting.barWidth
   }
   internal var currentCenter: CGPoint {
-    return CGPoint(x: CGRectGetMidX(self.bounds), y: CGRectGetMidY(self.bounds))
+    return CGPoint(x: self.bounds.midX, y: self.bounds.midY)
   }
   internal var hollowRect: CGRect {
     return CGRect(
@@ -37,7 +37,7 @@ internal class TrackLayer: CAShapeLayer {
     self.cornerRadius = self.bounds.size.width * 0.5
     self.masksToBounds = true
     self.position = self.currentCenter
-    self.backgroundColor = self.setting.barColor.CGColor
+    self.backgroundColor = self.setting.barColor.cgColor
     self.mask()
   }
   
@@ -45,17 +45,17 @@ internal class TrackLayer: CAShapeLayer {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override internal func drawInContext(ctx: CGContext) {
-    self.drawTrack(ctx)
+  override internal func draw(in ctx: CGContext) {
+    self.drawTrack(ctx: ctx)
   }
   
   private func mask() {
     let maskLayer = CAShapeLayer()
     maskLayer.bounds = self.bounds
     let ovalRect = self.hollowRect
-    let path =  UIBezierPath(ovalInRect: ovalRect)
-    path.appendPath(UIBezierPath(rect: maskLayer.bounds))
-    maskLayer.path = path.CGPath
+    let path =  UIBezierPath(ovalIn: ovalRect)
+    path.append(UIBezierPath(rect: maskLayer.bounds))
+    maskLayer.path = path.cgPath
     maskLayer.position = self.currentCenter
     maskLayer.fillRule = kCAFillRuleEvenOdd
     self.mask = maskLayer
@@ -66,13 +66,19 @@ internal class TrackLayer: CAShapeLayer {
     let centerX = self.currentCenter.x
     let centerY = self.currentCenter.y
     let radius = min(centerX, centerY)
-    CGContextSetFillColorWithColor(ctx, self.setting.trackingColor.CGColor)
-    CGContextBeginPath(ctx)
-    CGContextMoveToPoint(ctx, centerX, centerY)
-    CGContextAddArc(ctx, centerX, centerY, radius,
-      CGFloat(Math.degreesToRadians(self.setting.startAngle)),
-      CGFloat(Math.degreesToRadians(adjustDegree)), 0)
-    CGContextClosePath(ctx);
-    CGContextFillPath(ctx);
+    ctx.setFillColor(self.setting.trackingColor.cgColor)
+    ctx.beginPath()
+//    CGContextMoveToPoint(ctx, centerX, centerY)
+    ctx.move(to: CGPoint(x: centerX, y: centerY))
+//    CGContextAddArc(ctx, centerX, centerY, radius,
+//      CGFloat(Math.degreesToRadians(self.setting.startAngle)),
+//      CGFloat(Math.degreesToRadians(adjustDegree)), 0)
+    ctx.addArc(center: CGPoint(x: centerX, y: centerY),
+               radius: radius,
+               startAngle: CGFloat(Math.degreesToRadians(self.setting.startAngle)),
+               endAngle: CGFloat(Math.degreesToRadians(adjustDegree)),
+               clockwise: false)
+    ctx.closePath();
+    ctx.fillPath();
   }
 }

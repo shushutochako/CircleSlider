@@ -25,26 +25,26 @@ class ViewController: UIViewController {
   }
   private var valueLabel: UILabel!
   private var progressLabel: UILabel!
-  private var timer: NSTimer?
+  private var timer: Timer?
   private var progressValue: Float = 0
   private var sliderOptions: [CircleSliderOption] {
     return [
-      .BarColor(UIColor(red: 198/255, green: 244/255, blue: 23/255, alpha: 0.2)),
-      .ThumbColor(UIColor(red: 141/255, green: 185/255, blue: 204/255, alpha: 1)),
-      .TrackingColor(UIColor(red: 78/255, green: 136/255, blue: 185/255, alpha: 1)),
-      .BarWidth(20),
-      .StartAngle(-45),
-      .MaxValue(150),
-      .MinValue(20),
-      .ThumbImage(UIImage(named: "thumb_image")!)
+      CircleSliderOption.barColor(UIColor(red: 198/255, green: 244/255, blue: 23/255, alpha: 0.2)),
+      CircleSliderOption.thumbColor(UIColor(red: 141/255, green: 185/255, blue: 204/255, alpha: 1)),
+      CircleSliderOption.trackingColor(UIColor(red: 78/255, green: 136/255, blue: 185/255, alpha: 1)),
+      CircleSliderOption.barWidth(20),
+      CircleSliderOption.startAngle(-45),
+      CircleSliderOption.maxValue(150),
+      CircleSliderOption.minValue(20),
+      CircleSliderOption.thumbImage(UIImage(named: "thumb_image")!)
     ]
   }
   private var progressOptions: [CircleSliderOption] {
     return [
-      .BarColor(UIColor(red: 255/255, green: 190/255, blue: 190/255, alpha: 0.3)),
-      .TrackingColor(UIColor(red: 159/255, green: 0/255, blue: 0/255, alpha: 1)),
-      .BarWidth(30),
-      .SliderEnabled(false)
+      .barColor(UIColor(red: 255/255, green: 190/255, blue: 190/255, alpha: 0.3)),
+      .trackingColor(UIColor(red: 159/255, green: 0/255, blue: 0/255, alpha: 1)),
+      .barWidth(30),
+      .sliderEnabled(false)
     ]
   }
   
@@ -56,21 +56,21 @@ class ViewController: UIViewController {
   
   private func buildCircleSlider() {
     self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: self.sliderOptions)
-    self.circleSlider?.addTarget(self, action: #selector(ViewController.valueChange(_:)), forControlEvents: .ValueChanged)
+    self.circleSlider?.addTarget(self, action: #selector(valueChange(sender:)), for: .valueChanged)
     self.sliderArea.addSubview(self.circleSlider!)
     self.valueLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-    self.valueLabel.textAlignment = .Center
-    self.valueLabel.center = CGPoint(x: CGRectGetWidth(self.circleSlider.bounds) * 0.5, y: CGRectGetHeight(self.circleSlider.bounds) * 0.5)
+    self.valueLabel.textAlignment = .center
+    self.valueLabel.center = CGPoint(x: self.circleSlider.bounds.width * 0.5, y: self.circleSlider.bounds.height * 0.5)
     self.circleSlider.addSubview(self.valueLabel)
   }
   
   private func buildCircleProgress() {
     self.circleProgress = CircleSlider(frame: self.progressArea.bounds, options: self.progressOptions)
-    self.circleProgress?.addTarget(self, action: #selector(ViewController.valueChange(_:)), forControlEvents: .ValueChanged)
+    self.circleProgress?.addTarget(self, action: #selector(valueChange(sender:)), for: .valueChanged)
     self.progressArea.addSubview(self.circleProgress!)
     self.progressLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-    self.progressLabel.textAlignment = .Center
-    self.progressLabel.center = CGPoint(x: CGRectGetWidth(self.circleProgress.bounds) * 0.5, y: CGRectGetHeight(self.circleProgress.bounds) * 0.5)
+    self.progressLabel.textAlignment = .center
+    self.progressLabel.center = CGPoint(x: self.circleProgress.bounds.width * 0.5, y: self.circleProgress.bounds.height * 0.5)
     self.circleProgress.addSubview(self.progressLabel)
   }
   
@@ -88,11 +88,11 @@ class ViewController: UIViewController {
   @IBAction func tapProgress(sender: AnyObject) {
     if self.timer == nil {
       self.progressValue = 0
-      self.timer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: #selector(ViewController.fire(_:)), userInfo: nil, repeats: true)
+      self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(fire(timer:)), userInfo: nil, repeats: true)
     }
   }
   
-  func fire(timer: NSTimer) {
+  func fire(timer: Timer) {
     self.progressValue += 0.5
     if self.progressValue > 100 {
       self.timer?.invalidate()
@@ -102,22 +102,22 @@ class ViewController: UIViewController {
     self.circleProgress.value = self.progressValue
   }
   
-  @IBAction func trackingColorChanged(sender: AnyObject) {
+  @IBAction func trackingColorChanged(_ sender: AnyObject) {
     let redValue = CGFloat((sender as! UISlider).value)/255
     let newColor = UIColor(red: redValue, green: 136/255, blue: 185/255, alpha: 1)
-    self.circleSlider.changeOptions([.TrackingColor(newColor)])
+    self.circleSlider.changeOptions([.trackingColor(newColor)])
   }
   
-  @IBAction func barWidthChanged(sender: AnyObject) {
-    self.circleSlider.changeOptions([.BarWidth(CGFloat((sender as! UISlider).value))])
+  @IBAction func barWidthChanged(_ sender: AnyObject) {
+    self.circleSlider.changeOptions([.barWidth(CGFloat((sender as! UISlider).value))])
   }
   
-  @IBAction func thumbWidthChanged(sender: AnyObject) {
-    self.circleSlider.changeOptions([.ThumbWidth(CGFloat((sender as! UISlider).value))])
+  @IBAction func thumbWidthChanged(_ sender: AnyObject) {
+    self.circleSlider.changeOptions([.thumbWidth(CGFloat((sender as! UISlider).value))])
   }
     
-  @IBAction func viewInsetChanged(sender: AnyObject) {
-    self.circleSlider.changeOptions([.ViewInset(CGFloat((sender as! UISlider).value))])
+  @IBAction func viewInsetChanged(_ sender: AnyObject) {
+    self.circleSlider.changeOptions([.viewInset(CGFloat((sender as! UISlider).value))])
   }
 }
 
