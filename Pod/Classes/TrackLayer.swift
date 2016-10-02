@@ -68,11 +68,7 @@ internal class TrackLayer: CAShapeLayer {
     let radius = min(centerX, centerY)
     ctx.setFillColor(self.setting.trackingColor.cgColor)
     ctx.beginPath()
-//    CGContextMoveToPoint(ctx, centerX, centerY)
     ctx.move(to: CGPoint(x: centerX, y: centerY))
-//    CGContextAddArc(ctx, centerX, centerY, radius,
-//      CGFloat(Math.degreesToRadians(self.setting.startAngle)),
-//      CGFloat(Math.degreesToRadians(adjustDegree)), 0)
     ctx.addArc(center: CGPoint(x: centerX, y: centerY),
                radius: radius,
                startAngle: CGFloat(Math.degreesToRadians(self.setting.startAngle)),
