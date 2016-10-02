@@ -54,6 +54,12 @@ class ViewController: UIViewController {
     self.buildCircleProgress()
   }
   
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.circleSlider.frame = self.sliderArea.bounds
+    self.circleProgress.frame = self.progressArea.bounds
+  }
+  
   private func buildCircleSlider() {
     self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: self.sliderOptions)
     self.circleSlider?.addTarget(self, action: #selector(valueChange(sender:)), for: .valueChanged)
@@ -85,7 +91,7 @@ class ViewController: UIViewController {
     }
   }
   
-  @IBAction func tapProgress(sender: AnyObject) {
+  @IBAction func tapProgress(_ sender: AnyObject) {
     if self.timer == nil {
       self.progressValue = 0
       self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(fire(timer:)), userInfo: nil, repeats: true)
