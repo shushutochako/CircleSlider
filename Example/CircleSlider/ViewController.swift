@@ -56,8 +56,11 @@ class ViewController: UIViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+    
     self.circleSlider.frame = self.sliderArea.bounds
     self.circleProgress.frame = self.progressArea.bounds
+    self.valueLabel.center = CGPoint(x: self.circleSlider.bounds.width * 0.5, y: self.circleSlider.bounds.height * 0.5)
+    self.progressLabel.center = CGPoint(x: self.circleProgress.bounds.width * 0.5, y: self.circleProgress.bounds.height * 0.5)
   }
   
   private func buildCircleSlider() {
@@ -66,7 +69,6 @@ class ViewController: UIViewController {
     self.sliderArea.addSubview(self.circleSlider!)
     self.valueLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     self.valueLabel.textAlignment = .center
-    self.valueLabel.center = CGPoint(x: self.circleSlider.bounds.width * 0.5, y: self.circleSlider.bounds.height * 0.5)
     self.circleSlider.addSubview(self.valueLabel)
   }
   
@@ -76,7 +78,6 @@ class ViewController: UIViewController {
     self.progressArea.addSubview(self.circleProgress!)
     self.progressLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     self.progressLabel.textAlignment = .center
-    self.progressLabel.center = CGPoint(x: self.circleProgress.bounds.width * 0.5, y: self.circleProgress.bounds.height * 0.5)
     self.circleProgress.addSubview(self.progressLabel)
   }
   
