@@ -87,7 +87,7 @@ open class CircleSlider: UIControl {
   fileprivate var trackingColor              = UIColor.blue
   fileprivate var thumbColor                 = UIColor.black
   fileprivate var barWidth: CGFloat          = 20
-  fileprivate var maxValue: Float            = 100
+  fileprivate var maxValue: Float            = 101
   fileprivate var minValue: Float            = 0
   fileprivate var sliderEnabled              = true
   fileprivate var viewInset:CGFloat          = 20
@@ -190,6 +190,8 @@ open class CircleSlider: UIControl {
         self.thumbWidth = value
       case let .maxValue(value):
         self.maxValue = value
+        // Adjust because value not rise up to the maxValue
+        self.maxValue += 1
       case let .minValue(value):
         self.minValue = value
         self._value = self.minValue
@@ -203,8 +205,6 @@ open class CircleSlider: UIControl {
         self.thumbImage = value
       }
     }
-    // Adjust because value not rise up to the maxValue
-    self.maxValue += 1
   }
   
   fileprivate func layout(_ degree: Double) {
