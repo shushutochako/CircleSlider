@@ -203,6 +203,8 @@ open class CircleSlider: UIControl {
         self.thumbImage = value
       }
     }
+    // Adjust because value not rise up to the maxValue
+    self.maxValue += 1
   }
   
   fileprivate func layout(_ degree: Double) {
