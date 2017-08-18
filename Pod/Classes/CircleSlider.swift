@@ -54,7 +54,7 @@ open class CircleSlider: UIControl {
       if (self._value == self.maxValue) {
          degree = degree - degree / (360 * 100)
       }
-        
+      self.latestDegree = degree
       self.layout(degree)
     }
   }
