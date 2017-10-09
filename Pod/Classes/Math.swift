@@ -11,7 +11,7 @@ import UIKit
 internal class Math {
   
   internal class func degreesToRadians(_ angle: Double) -> Double {
-    return angle / 180 * M_PI
+    return angle / 180 * Double.pi
   }
   
   internal class func pointFromAngle(_ frame: CGRect, angle: Double, radius: Double) -> CGPoint {
@@ -24,7 +24,7 @@ internal class Math {
   internal class func pointPairToBearingDegrees(_ startPoint: CGPoint, endPoint: CGPoint) -> Double {
     let originPoint = CGPoint(x: endPoint.x - startPoint.x, y: endPoint.y - startPoint.y)
     let bearingRadians = atan2(Double(originPoint.y), Double(originPoint.x))
-    var bearingDegrees = bearingRadians * (180.0 / M_PI)
+    var bearingDegrees = bearingRadians * (180.0 / Double.pi)
     bearingDegrees = (bearingDegrees > 0.0 ? bearingDegrees : (360.0 + bearingDegrees))
     return bearingDegrees
   }
