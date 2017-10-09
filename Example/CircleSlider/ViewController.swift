@@ -81,7 +81,7 @@ class ViewController: UIViewController {
     self.circleProgress.addSubview(self.progressLabel)
   }
   
-  func valueChange(sender: CircleSlider) {
+    @objc func valueChange(sender: CircleSlider) {
     switch sender.tag {
     case 0:
       self.valueLabel.text = "\(Int(sender.value))"
@@ -99,7 +99,7 @@ class ViewController: UIViewController {
     }
   }
   
-  func fire(timer: Timer) {
+    @objc func fire(timer: Timer) {
     self.progressValue += 0.5
     if self.progressValue > 100 {
       self.timer?.invalidate()
