@@ -371,7 +371,7 @@
 					};
 					876065A82A9510F8588EE99708D88184 = {
 						DevelopmentTeam = MS47564222;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -477,6 +477,7 @@
 			baseConfigurationReference = 5DE1C911D3B6EA764A38FB9FFBF2825F /* CircleSlider.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Target Support Files/CircleSlider/Info.plist";
 				PRODUCT_NAME = CircleSlider;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -523,6 +524,7 @@
 			baseConfigurationReference = 5DE1C911D3B6EA764A38FB9FFBF2825F /* CircleSlider.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Target Support Files/CircleSlider/Info.plist";
 				PRODUCT_NAME = CircleSlider;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -593,7 +595,8 @@
 				PRODUCT_NAME = CircleSlider;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -624,7 +627,8 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
