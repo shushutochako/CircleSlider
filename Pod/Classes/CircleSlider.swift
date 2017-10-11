@@ -11,7 +11,7 @@ public enum CircleSliderOption {
   case barColor(UIColor)
   case trackingColor(UIColor)
   case thumbColor(UIColor)
-  case thumbImage(UIImage)
+  case thumbImage(UIImage?)
   case barWidth(CGFloat)
   case thumbWidth(CGFloat)
   case maxValue(Float)
