@@ -11,17 +11,15 @@ import CircleSlider
 
 class ViewController: UIViewController {
     @IBOutlet weak var sliderArea: UIView!
+    @IBOutlet weak var tapProgressButton: UIButton!
+    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var delegateLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
-    private var circleSlider: CircleSlider! {
-        didSet {
-            self.circleSlider.tag = 0
-        }
-    }
-    private var valueLabel: UILabel!
+    private var circleSlider: CircleSlider!
     private var timer: Timer?
-    private var progressValue: Float = 0
     private var minValue: Float = 20
-    private var maxValue: Float = 150
+    private var maxValue: Float = 100
     private var sliderOptions: [CircleSliderOption] {
         return [
             CircleSliderOption.barColor(UIColor(red: 127 / 255, green: 244 / 255, blue: 23 / 255, alpha: 1)),
@@ -50,45 +48,65 @@ class ViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         circleSlider.frame = sliderArea.bounds
-        valueLabel.center = CGPoint(x: circleSlider.bounds.width * 0.5, y: circleSlider.bounds.height * 0.5)
-        circleSlider.value = 50
     }
     
     private func buildCircleSlider() {
         circleSlider = CircleSlider(frame: sliderArea.bounds, options: sliderOptions)
         circleSlider?.addTarget(self, action: #selector(valueChange(sender:)), for: .valueChanged)
         sliderArea.addSubview(circleSlider!)
-        valueLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        valueLabel.textAlignment = .center
-        circleSlider.addSubview(valueLabel)
+        circleSlider.delegate = self
     }
     
     @objc func valueChange(sender: CircleSlider) {
-        switch sender.tag {
-        case 0:
-            valueLabel.text = "\(Int(sender.value))"
-        default:
-            break
-        }
+        valueLabel.text = "\(Int(sender.value))"
+        changeButtonImage(circleSlider.status)
     }
     
     @IBAction func tapProgress(_: AnyObject) {
-        if timer == nil {
-            progressValue = minValue
+        
+        switch circleSlider.status {
+            
+        case CircleSliderStatus.noChangeMinValue:
             timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(fire(timer:)), userInfo: nil, repeats: true)
+            
+        case CircleSliderStatus.reachedMaxValue:
+            tapProgressButton.setImage(UIImage(named: "button_start"), for: UIControlState.normal)
+            circleSlider.value = minValue
+            timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(fire(timer:)), userInfo: nil, repeats: true)
+            
+        case CircleSliderStatus.inProgressChangeValue:
+            if (timer?.isValid)! {
+                tapProgressButton.setImage(UIImage(named: "button_start"), for: UIControlState.normal)
+                timer?.invalidate()
+            } else {
+                tapProgressButton.setImage(UIImage(named: "button_stop"), for: UIControlState.normal)
+                timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(fire(timer:)), userInfo: nil, repeats: true)
+            }
         }
     }
     
     @objc func fire(timer _: Timer) {
-        progressValue += 0.5
-        if progressValue > maxValue {
+        circleSlider.value += 0.5
+        changeButtonImage(circleSlider.status)
+    }
+    
+    private func changeButtonImage(_ status: CircleSliderStatus) {
+        switch status {
+        case CircleSliderStatus.noChangeMinValue:
+            tapProgressButton.setImage(UIImage(named: "button_start"), for: UIControlState.normal)
+            statusLabel.text = "noChangeMinValue"
+            
+        case CircleSliderStatus.inProgressChangeValue:
+            tapProgressButton.setImage(UIImage(named: "button_stop"), for: UIControlState.normal)
+            statusLabel.text = "inProgressChangeValue"
+            
+        case CircleSliderStatus.reachedMaxValue:
+            tapProgressButton.setImage(UIImage(named: "button_end"), for: UIControlState.normal)
+            statusLabel.text = "reachedMaxValue"
             timer?.invalidate()
             timer = nil
-            progressValue = minValue
         }
-        circleSlider.value = progressValue
     }
     
     @IBAction func enableSwitchChanged(_ sender: Any) {
@@ -167,6 +185,22 @@ class ViewController: UIViewController {
         let lastValue = circleSlider.value
         circleSlider.changeOptions([.thumbImage(nil)])
         circleSlider.value = lastValue
+    }
+    
+    @IBAction func thumbPositionChanged(_ sender: Any) {
+        let lastValue = circleSlider.value
+        circleSlider.changeOptions([.thumbPosition(Float((sender as! UISlider).value))])
+        circleSlider.value = lastValue
+    }
+}
+
+extension ViewController: CircleSliderDelegate {
+    func didStartChangeValue() {
+        delegateLabel.text = "didStartChangeValue"
+    }
+    
+    func didReachedMaxValue() {
+        delegateLabel.text = "didReachedMaxValue"
     }
     
 }

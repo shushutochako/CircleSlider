@@ -19,9 +19,30 @@ public enum CircleSliderOption {
     case sliderEnabled(Bool)
     case viewInset(CGFloat)
     case minMaxSwitchTreshold(Float)
+    case thumbPosition(Float)
+}
+
+public enum CircleSliderStatus {
+    case noChangeMinValue
+    case inProgressChangeValue
+    case reachedMaxValue
 }
 
 open class CircleSlider: UIControl {
+    open var delegate: CircleSliderDelegate?
+    open var status: CircleSliderStatus {
+        switch _value {
+        case minValue:
+            return CircleSliderStatus.noChangeMinValue
+            
+        case maxValue:
+            return CircleSliderStatus.reachedMaxValue
+            
+        default:
+            return CircleSliderStatus.inProgressChangeValue
+        }
+    }
+    
     fileprivate let minThumbTouchAreaWidth: CGFloat = 44
     fileprivate var latestDegree: Double = 0
     fileprivate var _value: Float = 0
@@ -44,6 +65,10 @@ open class CircleSlider: UIControl {
                 value = newValue
             }
             
+            if _value == minValue && newValue > minValue {
+                self.delegate?.didStartChangeValue()
+            }
+            
             self._value = value
             self.sendActions(for: .valueChanged)
             var degree = Math.degreeFromValue(self.startAngle, value: self.value, maxValue: self.maxValue, minValue: self.minValue)
@@ -53,6 +78,7 @@ open class CircleSlider: UIControl {
             // which otherwise cause to display a layer as it is on a min value
             if self._value == self.maxValue {
                 degree = degree - degree / (360 * 100)
+                self.delegate?.didReachedMaxValue()
             }
             
             self.layout(degree)
@@ -105,6 +131,7 @@ open class CircleSlider: UIControl {
             self._thumbWidth = newValue
         }
     }
+    fileprivate var thumbPosition: Float = 0.5
     
     open override func awakeFromNib() {
         super.awakeFromNib()
@@ -116,6 +143,11 @@ open class CircleSlider: UIControl {
         if let options = options {
             build(options)
         }
+    }
+    
+    convenience init(frame: CGRect, options: [CircleSliderOption]?, delegate: CircleSliderDelegate?) {
+        self.init(frame: frame, options: options)
+        self.delegate = delegate
     }
     
     public required init?(coder _: NSCoder) {
@@ -202,6 +234,8 @@ open class CircleSlider: UIControl {
                 self.minMaxSwitchTreshold = value
             case let .thumbImage(value):
                 self.thumbImage = value
+            case let .thumbPosition(value):
+                self.thumbPosition = value
             }
         }
     }
@@ -224,7 +258,12 @@ open class CircleSlider: UIControl {
     }
     
     fileprivate func thumbCenter(_ degree: Double) -> CGPoint {
-        let radius = (bounds.insetBy(dx: viewInset, dy: viewInset).width * 0.5) - (barWidth * 0.5)
+        let radius = (bounds.insetBy(dx: viewInset, dy: viewInset).width * 0.5) - (barWidth * CGFloat(thumbPosition))
         return Math.pointFromAngle(frame, angle: degree, radius: Double(radius))
     }
+}
+
+public protocol CircleSliderDelegate {
+    func didStartChangeValue()
+    func didReachedMaxValue()
 }
