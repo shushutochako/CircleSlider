@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'CircleSlider_Example', :exclusive => true do
+target 'CircleSlider_Example' do
   pod "CircleSlider", :path => "../"
 end
 
-target 'CircleSlider_Tests', :exclusive => true do
+target 'CircleSlider_Tests' do
   pod "CircleSlider", :path => "../"
 
   
