@@ -1,25 +1,20 @@
 {
   "name": "CircleSlider",
-  "version": "0.1.0",
-  "summary": "A short description of CircleSlider.",
-  "description": "",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/CircleSlider",
+  "version": "0.5.0",
+  "summary": "CircleSlider is a Circular slider library. written in pure swift.",
+  "homepage": "https://github.com/shushutochako/CircleSlider",
   "license": "MIT",
   "authors": {
-    "増島 亘康": "masujima_nobuyasu_gn@cyberagent.co.jp"
+    "shushutochako": "shushutochako22@gmail.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/CircleSlider.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/shushutochako/CircleSlider.git",
+    "tag": "0.5.0"
   },
+  "social_media_url": "https://twitter.com/shushutochako",
   "platforms": {
     "ios": "8.0"
   },
   "requires_arc": true,
-  "source_files": "Pod/Classes/**/*",
-  "resource_bundles": {
-    "CircleSlider": [
-      "Pod/Assets/*.png"
-    ]
-  }
+  "source_files": "Pod/Classes/**/*"
 }
